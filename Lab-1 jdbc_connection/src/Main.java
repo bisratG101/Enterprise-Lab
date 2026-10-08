@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Main {
 
@@ -8,7 +9,7 @@ public class Main {
 
         String url = "jdbc:mysql://localhost:3306/StudentsDB";
         String username = "root";
-        String password = "PASSWORD";
+        String password = "pass";
 
         try {
 
@@ -19,20 +20,25 @@ public class Main {
 
             System.out.println("Established Connection");
 
+            Statement statement = connection.createStatement();
+
             String sql =
-                    "DELETE FROM students WHERE id = ?";
+                    "SELECT AVG(grade) AS average_grade FROM students";
 
-            PreparedStatement statement =
-                    connection.prepareStatement(sql);
+            ResultSet resultSet =
+                    statement.executeQuery(sql);
 
-            statement.setInt(1, 2);
+            if (resultSet.next()) {
 
-            int rowsDeleted = statement.executeUpdate();
+                double averageGrade =
+                        resultSet.getDouble("average_grade");
 
-            System.out.println(
-                    rowsDeleted + " student deleted successfully."
-            );
+                System.out.println(
+                        "Average Grade: " + averageGrade
+                );
+            }
 
+            resultSet.close();
             statement.close();
             connection.close();
 
