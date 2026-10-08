@@ -20,18 +20,17 @@ public class Main {
             System.out.println("Established Connection");
 
             String sql =
-                    "UPDATE students SET firstname = ? WHERE id = ?";
+                    "DELETE FROM students WHERE id = ?";
 
             PreparedStatement statement =
                     connection.prepareStatement(sql);
 
-            statement.setString(1, "UpdatedFirstName");
-            statement.setInt(2, 1);
+            statement.setInt(1, 2);
 
-            int rowsUpdated = statement.executeUpdate();
+            int rowsDeleted = statement.executeUpdate();
 
             System.out.println(
-                    rowsUpdated + " student updated successfully."
+                    rowsDeleted + " student deleted successfully."
             );
 
             statement.close();
