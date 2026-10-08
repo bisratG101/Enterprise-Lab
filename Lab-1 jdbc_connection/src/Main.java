@@ -2,16 +2,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        String url = "jdbc:mysql://localhost:3306/jdbc_db";
+        String url = "jdbc:mysql://localhost:3306/StudentsDB";
         String username = "root";
-        String password = "YOUR_PASSWORD";
+        String password = "221997Bis$";
 
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection =
+                    DriverManager.getConnection(url, username, password);
 
-            System.out.println("Connected successfully!");
+            System.out.println("Established Connection");
 
             connection.close();
 
