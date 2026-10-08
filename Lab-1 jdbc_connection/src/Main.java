@@ -9,7 +9,7 @@ public class Main {
 
         String url = "jdbc:mysql://localhost:3306/StudentsDB";
         String username = "root";
-        String password = "pass";
+        String password = "password";
 
         try {
 
