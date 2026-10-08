@@ -1,7 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 public class Main {
 
@@ -9,7 +8,7 @@ public class Main {
 
         String url = "jdbc:mysql://localhost:3306/StudentsDB";
         String username = "root";
-        String password = "passwrod";
+        String password = "PASSWORD";
 
         try {
 
@@ -20,27 +19,21 @@ public class Main {
 
             System.out.println("Established Connection");
 
-            Statement statement = connection.createStatement();
+            String sql =
+                    "UPDATE students SET firstname = ? WHERE id = ?";
 
-            String sql = "SELECT * FROM students LIMIT 5";
+            PreparedStatement statement =
+                    connection.prepareStatement(sql);
 
-            ResultSet resultSet = statement.executeQuery(sql);
+            statement.setString(1, "UpdatedFirstName");
+            statement.setInt(2, 1);
 
-            while (resultSet.next()) {
+            int rowsUpdated = statement.executeUpdate();
 
-                int id = resultSet.getInt("id");
-                String firstname = resultSet.getString("firstname");
-                String lastname = resultSet.getString("lastname");
-                int grade = resultSet.getInt("grade");
+            System.out.println(
+                    rowsUpdated + " student updated successfully."
+            );
 
-                System.out.println(
-                        "ID: " + id +
-                                ", Name: " + firstname + " " + lastname +
-                                ", Grade: " + grade
-                );
-            }
-
-            resultSet.close();
             statement.close();
             connection.close();
 
